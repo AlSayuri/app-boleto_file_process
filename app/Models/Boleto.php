@@ -22,6 +22,7 @@ class Boleto extends Model
     'debt_id',
     'created_at',
     'updated_at',
+    'processed'
   ];
 
 }
