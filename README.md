@@ -1,12 +1,12 @@
 # Sistema de API que faz upload de arquivos CSV que contém boletos para serem gerados e enviar um e-mail de notificação.
 - Fluxo:
     - A função recebe um arquivo com validação de tipo de arquivo, aceitando apenas CSV
-    - Lê o arquivo e verifica se existe os cabeçalhos obrigatórios (name, governmentId, email, debtAmount, debtDueDate,debtId)
+    - Lê o arquivo e verifica se existe os cabeçalhos obrigatórios (name, governmentId, email, debtAmount, debtDueDate, debtId)
     - Para cada linha é verificado se existe as informações obrigatórias e se está no formato correto
-        - Caso esteja no formato certo é adicionado em um array de lote
+        - Caso esteja no formato certo é processado
         - Caso não seja válido é ignorado e continua para a próxima linha
-    - Quando o lote de processamento chegar no seu tamanho os boletos serão processados
     - Se caso o boleto já tiver sido processado anteriormente ele é ignorado e não será feito um novo processamento
+        - Para garantir a idempotencia dos boletos é utilizado o debtId, que está presente no arquivo. No banco esse campo está como unique e o na hora de inerir no banco é utilizado o "insertOrIgnore" que ignora quando tiver conflito de dados duplicados. 
   
 ## Requisitos
 - PHP 8.3
